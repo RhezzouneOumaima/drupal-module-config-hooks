@@ -58,6 +58,49 @@ function event_page_alter(&$page) {
 
 }
 
+/**
+ * Implements hook_node_insert().
+ */
+function event_node_insert($node) {
+  // Perform custom logic when a node is inserted.
+  if ($node->getType() == 'article') {
+    \Drupal::messenger()->addMessage(t("New article is created  "));
+  }
+}
+
+
+/**
+ * Implements hook_node_update().
+ */
+function event_node_update($node) {
+  // Check if this is a node of a certain type.
+  if ($node->getType() == 'article') {
+    \Drupal::messenger()->addMessage(t("article is updated "));
+
+  }
+}
+
+
+/**
+ * Implements hook_node_presave().
+ * declenche avant que le noued enrogistre pour faire des modifs
+ */
+function event_node_presave($node) {
+  // Check if this is a node of a certain type.
+  if ($node->getType() == 'article') {
+    // Perform some custom logic here.
+    // For example, update a field on the node.
+    $node->set('body', 'body from presave');
+  }
+}
+/**
+ * apres creation d'un content type et avant qu'il est insérer dans la BD
+ * there"s hook_node_type_update apres update
+ */
+function event_node_type_insert($info) {
+  \Drupal::messenger()->addMessage(t('You have just created a content type '));
+}
+
 
 /**
  * Implements hook_preprocess_node().
