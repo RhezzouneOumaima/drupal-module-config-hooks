@@ -102,6 +102,82 @@ function event_node_type_insert($info) {
 }
 
 
+
+/**
+ * Implements hook_views_data().
+ * exposing a custom table to view
+ * I DN'T UNDERSTAND WHYYY
+ */
+/*function event_views_data() {
+  $data = array();
+
+  // Define a new table for the views data.
+  $data['mytable'] = array(
+    'table' => array(
+      'group' => 'mygroup',
+      'base' => array(
+        'field' => 'id',
+        'title' => t('My Table'),
+        'help' => t('Data from my custom table.'),
+      ),
+    ),
+  );
+
+  // Define fields for the new table.
+  $data['mytable']['id'] = array(
+    'title' => t('ID'),
+    'help' => t('The ID of the record.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+  );
+
+  $data['mytable']['name'] = array(
+    'title' => t('Name'),
+    'help' => t('The name of the record.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+  );
+
+  // Define relationships between tables.
+  $data['mytable']['table']['join'] = array(
+    'mytable2' => array(
+      'left_field' => 'mytable_id',
+      'field' => 'id',
+    ),
+  );
+
+  
+
+  return $data;
+}*/
+
+
+/**
+ * Implements hook_views_query_alter().
+ * same j pense as filters in view backoffice
+ */
+function event_views_query_alter(&$view, &$query) {
+  // Alter the query for a specific view.
+  if ($view->name == 'view_test') {
+    \Drupal::messenger()->addMessage(t('this is a view test '));
+  }
+}
+
+
+
+
+
+
 /**
  * Implements hook_preprocess_node().
  */
