@@ -174,6 +174,21 @@ function event_views_query_alter(&$view, &$query) {
 }
 
 
+/**
+ * Implements hook_entity_insert().
+ * lorsque on créer une entitée taxonomy
+ */
+function event_entity_insert($entity) {
+  if ($entity->getEntityType()->id() == 'taxonomy_term') {
+    $vocabulary_id = $entity->bundle();
+    if ($vocabulary_id == 'tags') {
+      // Perform some custom logic when a new tag is inserted.
+      $name = $entity->getName();
+      \Drupal::messenger()->addMessage(t('New tag created with name: @name', ['@name' => $name]));
+    }
+  }
+}
+
 
 
 
