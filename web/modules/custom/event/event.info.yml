@@ -1,0 +1,5 @@
+name: event
+type: module
+description: 'event'
+package: custom
+core_version_requirement: ^9 || ^10
